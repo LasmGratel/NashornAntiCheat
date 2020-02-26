@@ -1,4 +1,8 @@
 package com.github.nanamiarihara.nashornanticheat.proxy;
 
-public class Proxy {
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import java.io.IOException;
+
+public interface Proxy {
+    public void init(FMLPreInitializationEvent event) throws Exception;
 }

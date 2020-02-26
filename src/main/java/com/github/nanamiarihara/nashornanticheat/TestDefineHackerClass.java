@@ -1,5 +1,10 @@
-import java.net.URLClassLoader;
-import java.util.Map;
+package com.github.nanamiarihara.nashornanticheat;
+
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import org.apache.commons.io.FileUtils;
 
 public class TestDefineHackerClass {
     static char[] chars = new char[] {
@@ -439,11 +444,24 @@ public class TestDefineHackerClass {
     };
     public static class ByteClassLoader extends ClassLoader {
         Class<?> loadClass(byte[] bytes) {
-            return defineClass("hackerClass", bytes,0, 6914);
+            //DNMD,你还搞得挺像回事？
+            return defineClass("com.sun.proxy.$Proxy1337", bytes,0, bytes.length);
         }
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         ByteClassLoader loader = new ByteClassLoader();
-        Class<?> aClass = loader.loadClass(new String(chars).getBytes());
+        byte[] bytes = new byte[chars.length];
+        for (int i = 0; i < chars.length; i++) {
+            bytes[i] = (byte)chars[i];
+        }
+        Class<?> aClass = loader.loadClass(bytes);
+        for (Method method : aClass.getDeclaredMethods()) {
+            System.out.printf(method.getName());
+        }
+        for (Field field : aClass.getDeclaredFields()) {
+            System.out.println(field.getName());
+        }
+        System.out.println(aClass.getSuperclass());
+        FileUtils.writeByteArrayToFile(new File("/tmp/$Proxy1337.class"),bytes); //decompile with fernflower
     }
 }
