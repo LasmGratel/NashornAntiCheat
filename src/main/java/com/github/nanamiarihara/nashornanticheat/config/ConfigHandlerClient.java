@@ -67,9 +67,7 @@ public class ConfigHandlerClient {
                 //we are debugging, skip
                 continue;
             }
-            FileInputStream fis = new FileInputStream(location);
-            byte[] bytes = DigestUtils.md5(fis);
-            fis.close();
+            byte[] bytes =  DigestUtils.md5(FileUtils.readFileToByteArray(location));
             hashes.put(container.getModId(), Hex.encodeHexString(bytes));
         }
         return hashes;
