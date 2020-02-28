@@ -1,12 +1,11 @@
-//var modidSortedList=${modidlist}
+var modidSortedList = ['Forge','FML']
+var modidSortedList=${Mod_Id_List}
 var Loader = Java.type('cpw.mods.fml.common.Loader')
 var DigestUtils = Java.type('org.apache.commons.codec.digest.DigestUtils')
 var FileUtils = Java.type('org.apache.commons.io.FileUtils')
 var Minecraft = Java.type('net.minecraft.client.Minecraft')
 var File = Java.type('java.io.File')
-var System = Java.type('java.lang.System')
 var Hex = Java.type('org.apache.commons.codec.binary.Hex')
-var modidSortedList = ['Forge','FML']
 var console = {
     log: print,
     warn: print,
@@ -35,7 +34,6 @@ function checkHash() {
 
     }
     for(var i = 0; i < modidSortedList.length; i++) {
-        //console.log(hashes[modidSortedList[i]])
         hashList.push(hashes[modidSortedList[i]])
     }
     console.log(hashList)
