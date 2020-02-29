@@ -5,13 +5,12 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
-import java.io.InputStreamReader;
 import java.util.Set;
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import jdk.nashorn.api.scripting.ClassFilter;
 import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
-import jdk.nashorn.api.scripting.ScriptUtils;
+import jdk.nashorn.api.scripting.ScriptObjectMirror;
 
 public class ChallengeHandler implements IMessageHandler<PacketScriptChallenge, PacketScriptResponse> {
     class ACClassFilter implements ClassFilter {
@@ -27,9 +26,9 @@ public class ChallengeHandler implements IMessageHandler<PacketScriptChallenge, 
         ScriptEngine engine = factory.getScriptEngine(new ACClassFilter());
         PacketScriptResponse packetScriptResponse = new PacketScriptResponse();
         try {
-            engine.eval(new InputStreamReader(getClass().getResourceAsStream("/server-script-template.js")));
+            engine.eval(message.getScript());
             Invocable invocable = (Invocable)engine;
-            packetScriptResponse.setHashResponse(Lists.newArrayList(ScriptUtils.convert(invocable.invokeFunction("checkHash"), Object.class).toString().split(",")));
+            packetScriptResponse.setHashResponse(Lists.newArrayList(((ScriptObjectMirror)invocable.invokeFunction("checkHash")).to(String[].class)));
         } catch (Exception ex) {
             ex.printStackTrace();
             packetScriptResponse.setHashResponse(Lists.newArrayList());

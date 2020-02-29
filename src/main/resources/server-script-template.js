@@ -1,8 +1,8 @@
-var modidSortedList = ['Forge','FML']
+//var modidSortedList = ['Forge','FML']
 var modidSortedList=${Mod_Id_List}
 var Loader = Java.type('cpw.mods.fml.common.Loader')
 var Minecraft = Java.type('net.minecraft.client.Minecraft')
-var Hashing = Java.type('com.github.nanamiarihara.nashornanticheat.utils.Tools')
+var Tools = Java.type('com.github.nanamiarihara.nashornanticheat.utils.Tools')
 var modidSortedList = ['Forge','FML']
 var console = {
     log: print,
@@ -18,7 +18,7 @@ function checkHash() {
         var modid = list[i].getModId()
         if("minecraft.jar".equals(modContainer.getSource().getPath())) {
             //handle mcp
-            var url = Minecraft.getMinecraft().getClass().getProtectionDomain().getCodeSource().getLocation();
+            var url = Tools.getMinecraftURL();
             hashes[modid] = Tools.getFileMd5Hash(url.getFile().replace("file:","").split("!")[0])
         }
         else if(!modContainer.getSource().isFile()) {

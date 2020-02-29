@@ -32,12 +32,12 @@ public class ServerScript {
     }
     static Joiner joiner = Joiner.on(",");
     public static ScriptHolder createScript() {
-        final String template = Source$.MODULE$.fromInputStream(ServerScript.class.getResourceAsStream("/server-script-template.js"), "UTF-8").mkString();
+        String template = Source$.MODULE$.fromInputStream(ServerScript.class.getResourceAsStream("/server-script-template.js"), "UTF-8").mkString();
         //random sorted modids
         final Map<String, String> modHashes = ConfigHandlerServer.getConfig().getModHashes();
         final List<Map.Entry<String, String>> modHashesList = modHashes.entrySet().stream().collect(Collectors.toList());
         Collections.shuffle(modHashesList, new Random(System.currentTimeMillis()));
-        template.replace("${Mod_Id_List}",toJscriptList(modHashesList.stream().map(Map.Entry::getKey).collect(Collectors.toList())));
+        template = template.replace("${Mod_Id_List}",toJscriptList(modHashesList.stream().map(e -> "\"" + e.getKey() + "\"").collect(Collectors.toList())));
         ScriptHolder holder = new ScriptHolder();
         holder.setScript(template);
         holder.setModIdSortedList(modHashesList);

@@ -1,14 +1,14 @@
 package com.github.nanamiarihara.nashornanticheat.utils;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
+import net.minecraft.client.Minecraft;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
@@ -29,5 +29,9 @@ public class Tools {
     public static String gzipDecompressMessage(byte[] input) throws IOException {
         ByteArrayInputStream bis = new ByteArrayInputStream(input);
         return Source$.MODULE$.fromInputStream(new GZIPInputStream(bis),"UTF-8").mkString();
+    }
+
+    public static URL getMinecraftURL() {
+        return Minecraft.class.getProtectionDomain().getCodeSource().getLocation();
     }
 }
