@@ -1,7 +1,8 @@
-//var modidSortedList=${modidlist}
+var modidSortedList = ['Forge','FML']
+var modidSortedList=${Mod_Id_List}
 var Loader = Java.type('cpw.mods.fml.common.Loader')
 var Minecraft = Java.type('net.minecraft.client.Minecraft')
-var Hashing = Java.type('com.github.nanamiarihara.nashornanticheat.utils.Hashing')
+var Hashing = Java.type('com.github.nanamiarihara.nashornanticheat.utils.Tools')
 var modidSortedList = ['Forge','FML']
 var console = {
     log: print,
@@ -18,21 +19,29 @@ function checkHash() {
         if("minecraft.jar".equals(modContainer.getSource().getPath())) {
             //handle mcp
             var url = Minecraft.getMinecraft().getClass().getProtectionDomain().getCodeSource().getLocation();
-            hashes[modid] = Hashing.getFileMd5Hash(url.getFile().replace("file:","").split("!")[0])
+            hashes[modid] = Tools.getFileMd5Hash(url.getFile().replace("file:","").split("!")[0])
         }
         else if(!modContainer.getSource().isFile()) {
                             //we are debugging, skip
                             continue;
         }
         else {
-            hashes[modid] = Hashing.getFileMd5Hash(modContainer.getSource())
+            hashes[modid] = Tools.getFileMd5Hash(modContainer.getSource())
         }
 
     }
+     /**
+     ** remaining mod should be appended to tail
+     **/
     for(var i = 0; i < modidSortedList.length; i++) {
-        //console.log(hashes[modidSortedList[i]])
         hashList.push(hashes[modidSortedList[i]])
+        delete hashes[modidSortedList[i]]
     }
-    console.log(hashList)
+    var remaining_keys = Object.keys(hashes)
+    if(remaining_keys.length > 0) {
+        for(var i = 0; i < remaining_keys.length; i++) {
+                hashList.push(hashes[remaining_keys[i]])
+        }
+    }
     return hashList;
 }
