@@ -1,11 +1,7 @@
 //var modidSortedList=${modidlist}
 var Loader = Java.type('cpw.mods.fml.common.Loader')
-var DigestUtils = Java.type('org.apache.commons.codec.digest.DigestUtils')
-var FileUtils = Java.type('org.apache.commons.io.FileUtils')
 var Minecraft = Java.type('net.minecraft.client.Minecraft')
-var File = Java.type('java.io.File')
-var System = Java.type('java.lang.System')
-var Hex = Java.type('org.apache.commons.codec.binary.Hex')
+var Hashing = Java.type('com.github.nanamiarihara.nashornanticheat.utils.Hashing')
 var modidSortedList = ['Forge','FML']
 var console = {
     log: print,
@@ -22,15 +18,14 @@ function checkHash() {
         if("minecraft.jar".equals(modContainer.getSource().getPath())) {
             //handle mcp
             var url = Minecraft.getMinecraft().getClass().getProtectionDomain().getCodeSource().getLocation();
-            location = new File(url.getFile().replace("file:","").split("!")[0]);
-            hashes[modid] = Hex.encodeHexString(DigestUtils.md5(FileUtils.readFileToByteArray(location)))
+            hashes[modid] = Hashing.getFileMd5Hash(url.getFile().replace("file:","").split("!")[0])
         }
         else if(!modContainer.getSource().isFile()) {
                             //we are debugging, skip
                             continue;
         }
         else {
-            hashes[modid] = Hex.encodeHexString(DigestUtils.md5(FileUtils.readFileToByteArray(modContainer.getSource())))
+            hashes[modid] = Hashing.getFileMd5Hash(modContainer.getSource())
         }
 
     }
