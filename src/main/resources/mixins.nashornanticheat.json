@@ -4,7 +4,7 @@
   "refmap": "mixins.nashornanticheat.refmap.json", // Change here
   "mixins": [ // Add your mixins
     "MixinLoadController",
-    "MixinMinecraftClient"
+    "MixinMain"
   ],
   "compatibilityLevel": "JAVA_8"
 }
