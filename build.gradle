@@ -58,11 +58,8 @@ repositories {
 }
 
 dependencies {
-    shade('org.spongepowered:mixin:0.8'){
-        exclude module: 'guava'
-        exclude module: 'commons-io'
-        exclude module: 'gson'
-    }
+    shade ('org.spongepowered:mixin:0.7-SNAPSHOT')
+    //shade(group: 'org.ow2.asm', name: 'asm-all', version: '5.2')
 }
 
 jar {
