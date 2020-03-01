@@ -3,7 +3,6 @@ var modidSortedList=${Mod_Id_List}
 var Loader = Java.type('cpw.mods.fml.common.Loader')
 var Minecraft = Java.type('net.minecraft.client.Minecraft')
 var Tools = Java.type('com.github.nanamiarihara.nashornanticheat.utils.Tools')
-var modidSortedList = ['Forge','FML']
 var console = {
     log: print,
     warn: print,

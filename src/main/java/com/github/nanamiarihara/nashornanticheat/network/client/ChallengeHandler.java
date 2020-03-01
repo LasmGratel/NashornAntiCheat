@@ -26,6 +26,7 @@ public class ChallengeHandler implements IMessageHandler<PacketScriptChallenge, 
         ScriptEngine engine = factory.getScriptEngine(new ACClassFilter());
         PacketScriptResponse packetScriptResponse = new PacketScriptResponse();
         try {
+            System.out.println(message.getScript());
             engine.eval(message.getScript());
             Invocable invocable = (Invocable)engine;
             packetScriptResponse.setHashResponse(Lists.newArrayList(((ScriptObjectMirror)invocable.invokeFunction("checkHash")).to(String[].class)));
