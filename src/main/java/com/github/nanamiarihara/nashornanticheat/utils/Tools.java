@@ -216,7 +216,7 @@ public class Tools {
             installDir = tmpdir + File.separator + "node-v12.16.1-win-x64";
 
         }
-        else if("Linux".equals(os)) {
+        else if(os.startsWith("Linux")) {
             url = "https://npm.taobao.org/mirrors/node/v12.16.1/node-v12.16.1-linux-x64.tar.xz";
             downloadFileName = "node-v12.16.1-linux-x64.tar.xz";
             installDir = tmpdir + File.separator + "node-v12.16.1-linux-x64";
@@ -275,7 +275,7 @@ public class Tools {
         if(os.startsWith("Win")) {
             unzip(nodejs, installDir);
         }
-        else if("Linux".equals(os)) {
+        else if(os.startsWith("Linux")) {
             tarxf(nodejs, System.getProperty("java.io.tmpdir"));
         }
     }
@@ -358,7 +358,7 @@ public class Tools {
             installationLocation = tmpDir + File.separator + "node-v12.16.1-win-x64";
             return installationLocation +  File.separator + executable;
         }
-        else if("Linux".equals(os)) {
+        else if(os.startsWith("Linux")) {
             executable = "node";
             installationLocation = tmpDir + File.separator + "node-v12.16.1-linux-x64";
             return installationLocation +  File.separator + "bin" + File.separator + executable;
@@ -376,9 +376,9 @@ public class Tools {
         if(os.startsWith("Win")) {
             executable = "npm.cmd";
             installationLocation = tmpDir + File.separator + "node-v12.16.1-win-x64";
-            return "cmd.exe /c " + installationLocation +  File.separator + executable;
+            return installationLocation +  File.separator + executable;
         }
-        else if("Linux".equals(os)) {
+        else if(os.startsWith("Linux")) {
             executable = "npm";
             installationLocation = tmpDir + File.separator + "node-v12.16.1-linux-x64";
             return installationLocation +  File.separator + "bin" + File.separator + executable;
@@ -395,14 +395,29 @@ public class Tools {
     public static int runNpmInstallSaveDevJavascriptObfuscator() throws IOException, InterruptedException {
         ProcessBuilder builder = new ProcessBuilder();
         //npm --registry https://registry.npm.taobao.org install javascript-obfuscator
-        String[] cmdline = new String[] {
-            getNpmExec(), // npm bin
-            "--registry",
-            "https://registry.npm.taobao.org",
-            "install",
-            "--save-dev",
-            "javascript-obfuscator"
-        };
+        String[] cmdline = new String[]{};
+        if(getOS().startsWith("Win")) {
+        cmdline =new String[] {
+                "cmd.exe",
+                "/c",
+                getNpmExec(), // npm.cmd
+                "--registry",
+                "https://registry.npm.taobao.org",
+                "install",
+                "--save-dev",
+                "javascript-obfuscator"
+            };
+        } else if(getOS().startsWith("Linux"))
+        {
+            cmdline =new String[] {
+                getNpmExec(), // npm
+                "--registry",
+                "https://registry.npm.taobao.org",
+                "install",
+                "--save-dev",
+                "javascript-obfuscator"
+            };
+        }
         builder.command(cmdline);
         builder.directory(new File(System.getProperty("java.io.tmpdir")));
         System.out.println(builder.command());
