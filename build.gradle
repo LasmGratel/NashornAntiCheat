@@ -59,7 +59,7 @@ repositories {
 
 dependencies {
     shade ('org.spongepowered:mixin:0.7-SNAPSHOT')
-    //shade(group: 'org.ow2.asm', name: 'asm-all', version: '5.2')
+    compile group: 'com.coveo', name: 'nashorn-commonjs-modules', version: '1.0.9'
 }
 
 jar {

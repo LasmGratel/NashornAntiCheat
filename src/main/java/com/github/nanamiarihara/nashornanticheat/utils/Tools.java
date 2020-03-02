@@ -376,7 +376,7 @@ public class Tools {
         if(os.startsWith("Win")) {
             executable = "npm.cmd";
             installationLocation = tmpDir + File.separator + "node-v12.16.1-win-x64";
-            return installationLocation +  File.separator + executable;
+            return "cmd.exe /c " + installationLocation +  File.separator + executable;
         }
         else if("Linux".equals(os)) {
             executable = "npm";

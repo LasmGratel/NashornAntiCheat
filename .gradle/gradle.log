@@ -2,10 +2,40 @@
 :processApiResources NO-SOURCE
 :apiClasses UP-TO-DATE
 :sourceMainJava
-:compileJava
-:processResources
+:compileJava/home/lyt/IdeaProjects/NashornAntiCheat/build/sources/java/com/github/nanamiarihara/nashornanticheat/mixins/MixinMain.java:12: warning: Reflection is internal proprietary API and may be removed in a future release
+import sun.reflect.Reflection;
+                  ^
+Note: SpongePowered MIXIN Annotation Processor Version=0.7
+Note: ObfuscationServiceMCP supports type: "searge"
+Note: ObfuscationServiceMCP supports type: "notch"
+Note: Writing refmap to /home/lyt/IdeaProjects/NashornAntiCheat/build/tmp/compileJava/mixins.nashornanticheat.refmap.json
+/home/lyt/IdeaProjects/NashornAntiCheat/build/sources/java/com/github/nanamiarihara/nashornanticheat/mixins/MixinLoadController.java:27: warning: @Overwrite is missing an @reason tag
+    public List<ModContainer> getActiveModList() {
+                              ^
+Note: Writing refmap to /home/lyt/IdeaProjects/NashornAntiCheat/build/tmp/compileJava/mixins.nashornanticheat.refmap.json
+Note: Writing searge output SRGs to /home/lyt/IdeaProjects/NashornAntiCheat/build/tmp/reobf/mixins.srg
+/home/lyt/IdeaProjects/NashornAntiCheat/build/sources/java/com/github/nanamiarihara/nashornanticheat/mixins/MixinMain.java:12: warning: Reflection is internal proprietary API and may be removed in a future release
+import sun.reflect.Reflection;
+                  ^
+Note: Writing refmap to /home/lyt/IdeaProjects/NashornAntiCheat/build/tmp/compileJava/mixins.nashornanticheat.refmap.json
+Note: Writing refmap to /home/lyt/IdeaProjects/NashornAntiCheat/build/tmp/compileJava/mixins.nashornanticheat.refmap.json
+Note: Writing searge output SRGs to /home/lyt/IdeaProjects/NashornAntiCheat/build/tmp/reobf/mixins.srg
+/home/lyt/IdeaProjects/NashornAntiCheat/build/sources/java/com/github/nanamiarihara/nashornanticheat/mixins/MixinMain.java:12: warning: Reflection is internal proprietary API and may be removed in a future release
+import sun.reflect.Reflection;
+                  ^
+/home/lyt/IdeaProjects/NashornAntiCheat/build/sources/java/com/github/nanamiarihara/nashornanticheat/mixins/MixinMain.java:21: warning: Reflection is internal proprietary API and may be removed in a future release
+        Reflection.registerFieldsToFilter(EventBus.class, "listeners", "listenerOwners", "busID");
+        ^
+Note: /home/lyt/IdeaProjects/NashornAntiCheat/build/sources/java/com/github/nanamiarihara/nashornanticheat/network/client/PacketScriptResponse.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+5 warnings
+
+:processResources UP-TO-DATE
 :classes
+:compileTestJava NO-SOURCE
+:processTestResources NO-SOURCE
+:testClasses UP-TO-DATE
 
 BUILD SUCCESSFUL
 
-Total time: 1.419 secs
+Total time: 0.65 secs
