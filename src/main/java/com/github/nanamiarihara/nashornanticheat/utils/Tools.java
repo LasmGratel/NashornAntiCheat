@@ -210,7 +210,7 @@ public class Tools {
         System.out.println("Downloading Nodejs (for encrypting the script)");
         String downloadFileName = "";
         String installDir = "";
-        if("Windows".equals(os)) {
+        if(os.startsWith("Win")) {
             url = "https://npm.taobao.org/mirrors/node/v12.16.1/node-v12.16.1-win-x64.zip";
             downloadFileName = "node-v12.16.1-win-x64.zip";
             installDir = tmpdir + File.separator + "node-v12.16.1-win-x64";
@@ -272,7 +272,7 @@ public class Tools {
     public static void extract(String nodejs, String installDir) throws IOException, InterruptedException {
         String os = getOS();
         System.out.println("Extracting " + nodejs + " to " + installDir);
-        if("Windows".equals(os)) {
+        if(os.startsWith("Win")) {
             unzip(nodejs, installDir);
         }
         else if("Linux".equals(os)) {
@@ -353,7 +353,7 @@ public class Tools {
         String tmpDir = System.getProperty("java.io.tmpdir");
         String executable = "";
         String installationLocation = "";
-        if("Windows".equals(os)) {
+        if(os.startsWith("Win")) {
             executable = "node.exe";
             installationLocation = tmpDir + File.separator + "node-v12.16.1-win-x64";
             return installationLocation +  File.separator + executable;
@@ -373,7 +373,7 @@ public class Tools {
         String tmpDir = System.getProperty("java.io.tmpdir");
         String executable = "";
         String installationLocation = "";
-        if("Windows".equals(os)) {
+        if(os.startsWith("Win")) {
             executable = "npm.cmd";
             installationLocation = tmpDir + File.separator + "node-v12.16.1-win-x64";
             return installationLocation +  File.separator + executable;
@@ -431,7 +431,6 @@ public class Tools {
 
     public static boolean invokeJavaScriptObfuscator(File sourceFile) throws IOException, InterruptedException {
         ProcessBuilder builder = new ProcessBuilder();
-        String[] strings = {"true", "false", "base64", "rc4"};
         builder.command(new String[] {
             getNodeExec(),
             getJavaObfuscatorInstallLocation(),
@@ -439,9 +438,9 @@ public class Tools {
             "--compact",    //compact into 1 line
             "true",
             "--dead-code-injection", //insert dead code
-            "true",
-            "--dead-code-injection-threshold",
-            "100",
+            "false",
+            //"--dead-code-injection-threshold",
+            //"100",
             "--reserved-names", //avoid eliminating script entrypoint
             "checkHash" ,
             "--seed", //random seed
@@ -449,11 +448,15 @@ public class Tools {
             "--split-strings", //no we don't
             "true",
             "--split-strings-chunk-length",
-            "" + (new Random().nextInt(4) + 1),
+            "" + (new Random().nextInt(10) + 1),
             "--string-array", //i like it!
+            "false",
+            "--shuffle-string-array",
             "true",
-            "--string-array-encoding", //i like it!
-            strings[new Random().nextInt(strings.length)]
+            "--unicode-escape-sequence",
+            "true"
+            //"--string-array-encoding", //i like it!
+            //"true",
             //"--string-array-threshold",
             //"1"
         });

@@ -9,6 +9,7 @@ var console = {
     error: print
 };
 function checkHash() {
+    //console.log(modidSortedList)
     var list = Loader.instance().getActiveModList();
     var hashes = {}
     var hashList = []

@@ -3,6 +3,8 @@ package com.github.nanamiarihara.nashornanticheat.dyncollect;
 import java.util.List;
 
 /**
+ * temporarily discarded
+ *
  * collects client dynamic lib data
  *
  * maybe we can get something intresting
