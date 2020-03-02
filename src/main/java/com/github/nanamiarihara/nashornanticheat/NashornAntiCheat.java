@@ -5,7 +5,7 @@ import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = NashornAntiCheat.MODID)
+@Mod(modid = NashornAntiCheat.MODID, version = "1.0.0", name = "NashornAntiCheat")
 public class NashornAntiCheat {
     public static final String MODID = "nashornanticheat";
 
