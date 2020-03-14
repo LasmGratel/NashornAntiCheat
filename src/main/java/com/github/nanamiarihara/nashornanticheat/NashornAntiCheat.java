@@ -1,29 +1,19 @@
 package com.github.nanamiarihara.nashornanticheat;
 
-import com.github.nanamiarihara.nashornanticheat.server.ServerScript;
+import com.github.nanamiarihara.nashornanticheat.proxy.Proxy;
 import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import org.apache.commons.codec.digest.DigestUtils;
 
-import javax.script.*;
-import java.io.InputStreamReader;
-
-@Mod(modid = NashornAntiCheat.MODID)
+@Mod(modid = NashornAntiCheat.MODID, version = "1.0.0", name = "NashornAntiCheat")
 public class NashornAntiCheat {
     public static final String MODID = "nashornanticheat";
 
-    @Mod.EventHandler
-    public void preInit(FMLPreInitializationEvent event) throws ScriptException, NoSuchMethodException {
-        NACNetworkHandler.register();
-        ScriptEngine engine = new ScriptEngineManager().getEngineByName("js");
-        Compilable compiler = (Compilable) engine;
-        engine.eval(new InputStreamReader(NashornAntiCheat.class.getResourceAsStream("/corejs.min.js")));
-        engine.eval(new InputStreamReader(NashornAntiCheat.class.getResourceAsStream("/javascript-obfuscator.js")));
+    @SidedProxy(clientSide = "com.github.nanamiarihara.nashornanticheat.proxy.ClientProxy", serverSide = "com.github.nanamiarihara.nashornanticheat.proxy.ServerProxy")
+    private static Proxy proxy;
 
-        Invocable invocable = (Invocable) engine;
-        String code = invocable.invokeMethod(invocable.invokeMethod(engine.get("JavaScriptObfuscator"),
-                "obfuscate", ServerScript.createScript()), "getObfuscatedCode", engine.eval("{stringArrayEncoding: \"base64\", transformObjectKeys: true}")).toString();
-        System.out.println(code);
-        System.out.println(engine.eval(code));
+    @Mod.EventHandler
+    public void preInit(FMLPreInitializationEvent event) throws Exception {
+        proxy.init(event);
     }
 }
